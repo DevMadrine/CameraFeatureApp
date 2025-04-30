@@ -70,25 +70,11 @@ CameraPreview(
         .fillMaxSize()
 
 )
-
-                    IconButton(
-                        onClick = {
-                            controller.cameraSelector = if (
-                                controller.cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA){
-                                CameraSelector.DEFAULT_BACK_CAMERA
-                            }else{
-                              CameraSelector.DEFAULT_FRONT_CAMERA
-                            }
-
-                        },
-
-                        modifier = Modifier
-                            .offset(16.dp, 16.dp)
-                    ) {
-   Icon(imageVector = ImageVector.vectorResource(R.drawable.ic_user), contentDescription = "")
-
-                    }
-                    }
+CameraNav(modifier = Modifier
+    .fillMaxSize()
+    .padding(2.dp)
+)
+                }
                 }
             }
         }
