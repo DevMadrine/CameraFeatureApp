@@ -41,41 +41,19 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             CameraFeatureTheme {
-                val scaffoldState = rememberBottomSheetScaffoldState()
                 val controller = remember {
 
                     LifecycleCameraController(applicationContext).apply {
                         setEnabledUseCases(
                             CameraController.IMAGE_CAPTURE or
                             CameraController.VIDEO_CAPTURE
-//                            CameraController.IMAGE_ANALYSIS
+//
                         )
                     }
 
                 }
-                BottomSheetScaffold(
-                    scaffoldState = scaffoldState,
-                    sheetPeekHeight = 0.dp,
-                    sheetContent = {}
 
-                ) {padding ->
-                Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(padding)
-                    ){
-CameraPreview(
-    controller = controller,
-    modifier = Modifier
-        .fillMaxSize()
-
-)
-CameraNav(modifier = Modifier
-    .fillMaxSize()
-    .padding(2.dp)
-)
-                }
-                }
+                CameraScreen(controller = controller)
             }
         }
     }
