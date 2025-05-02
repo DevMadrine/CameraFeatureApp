@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CameraScreen(controller: LifecycleCameraController) {
     var showMicSettings by remember { mutableStateOf(false) }
+    var onOptionSelected by remember { mutableStateOf(true) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -27,8 +28,7 @@ fun CameraScreen(controller: LifecycleCameraController) {
         CameraPreview(controller, Modifier.fillMaxSize())
         CameraNav(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-            ,
+                .align(Alignment.BottomCenter),
             onNavEvent = { event ->
                 when (event) {
                     NavEvent.MicSettings -> showMicSettings = true
@@ -45,22 +45,17 @@ fun CameraScreen(controller: LifecycleCameraController) {
                     .fillMaxWidth(0.95f)
                     .clip(RoundedCornerShape(12.dp))
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = 80.dp)
+                    .padding(bottom = 80.dp),
+//                onOptionSelected = onOptionSelected(true)
+
             )
         }
     }
 }
 
-
-
-
-
-
-
-
-
-
-
+//fun onOptionSelected(b: Boolean): (Boolean) -> Unit {
+//    {true}
 //}
 
 
+//}
