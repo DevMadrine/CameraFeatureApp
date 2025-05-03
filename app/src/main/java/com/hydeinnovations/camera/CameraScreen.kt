@@ -43,7 +43,6 @@ fun CameraScreen(controller: LifecycleCameraController) {
                 modifier = Modifier
                     .fillMaxHeight(0.4f)
                     .fillMaxWidth(0.95f)
-                    .clip(RoundedCornerShape(12.dp))
                     .align(Alignment.BottomCenter)
                     .padding(bottom = 80.dp),
 //                onOptionSelected = onOptionSelected(true)

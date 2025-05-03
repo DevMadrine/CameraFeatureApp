@@ -34,7 +34,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 
@@ -48,15 +47,17 @@ fun MicSettingsContent(
 
     Box(
         modifier = modifier
+            .clip(shape = RoundedCornerShape(12.dp))
             .background(Color.Red.copy(alpha = 0.5f))
             .clickable { showMicSettings = false }
+
     ) {
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 10.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(
                 modifier = Modifier
@@ -84,9 +85,10 @@ fun MicSettingsContent(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(top = 10.dp),
+                        .padding(10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceAround
+
                 ) {
 
                     Box(
@@ -125,18 +127,34 @@ fun MicSettingsContent(
                             )
                         }
                     }
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(0.9f)
+                            .fillMaxHeight(0.45f)
+                            .background(color = Color.White, shape = RoundedCornerShape(25.dp))
 
-                    FieldComponent(
-                        icon = R.drawable.ic_radio_button_checked,
-                        contentDescription = "",
-                        modifier = modifier
-                            .fillMaxSize(0.95f)
-                            .fillMaxHeight(0.3f)
-                            .background(color = Color.White, shape = RoundedCornerShape(50.dp)),
 
-                        text = "Phone's microphone",
-                        contentScale = ContentScale.Crop
-                    )
+                    ){
+                        Row (
+                            modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 10.dp),
+                            horizontalArrangement = Arrangement.SpaceAround,
+                            verticalAlignment = Alignment.CenterVertically
+                        ){
+                            Text(
+                                text = "Phone microphone"
+                            )
+                            Spacer(modifier = Modifier.fillMaxWidth(0.8f))
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_radio_button_checked),
+                                contentDescription = "",
+                                modifier = Modifier.size(24.dp),
+                                contentScale = ContentScale.Crop,
+                                colorFilter = ColorFilter.tint(Color.Red)
+
+                            )
+
+                        }
+                    }
 
                 }
             }
@@ -184,15 +202,19 @@ fun FieldComponent(
     contentScale: ContentScale = ContentScale.Crop,
 
 ) {
-    Button(
-        modifier = modifier
-            .size(45.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(Color.Red)
+    Button(onClick = {}, modifier=modifier
+        .clip(shape = RoundedCornerShape(50.dp))
+        .width(200.dp)
+        .height(40.dp)
         ,
-       onClick = {}
+        colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+
     ) {
-       Row(){
+       Row(
+           verticalAlignment = Alignment.CenterVertically,
+           horizontalArrangement = Arrangement.SpaceBetween,
+           modifier = modifier.padding(start = 8.dp, end = 8.dp)
+       ){
            Text(
                text = text
 
@@ -209,33 +231,5 @@ fun FieldComponent(
        }
     }
 }
-
-
-//@Preview()
-//@Composable
-//fun AudioVideoButtonPreview() {
-//    var state by remember { mutableStateOf(true) }
-//    Row {
-//        AudioVideoButton(
-//            name = "Audio In",
-//            onClick = { selected ->
-//                if (!selected) {
-//                    state = !state
-//                }
-//            },
-//            selected = state,
-//        )
-//        AudioVideoButton(
-//            name = "Video In",
-//            onClick = { selected ->
-//                if (!selected) {
-//                    state = !state
-//                }
-//            },
-//            selected = !state,
-//        )
-//    }
-//}
-
 
 
