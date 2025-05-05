@@ -1,6 +1,7 @@
 package com.hydeinnovations.camera
 
 
+import android.widget.RadioGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,9 +18,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -37,11 +40,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 
+enum class InputMode { Audio, Video }
+
+
 @Composable
 fun MicSettingsContent(
     modifier: Modifier = Modifier,
-//    onOptionSelected: (Boolean) -> Unit
 ) {
+    var inputMode by remember { mutableStateOf(InputMode.Audio) }
     var showMicSettings by remember { mutableStateOf(false) }
 
 
@@ -55,14 +61,15 @@ fun MicSettingsContent(
 
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .padding(top = 10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
         ) {
             Spacer(
                 modifier = Modifier
-                    .fillMaxHeight(0.025f)
-                    .fillMaxWidth(0.4f)
+                    .height(5.dp)
+                    .width(100.dp)
                     .background(color = Color.White, shape = RoundedCornerShape(14.dp)),
             )
 
@@ -75,8 +82,9 @@ fun MicSettingsContent(
 
             Box(
                 modifier = Modifier
-                    .fillMaxSize(0.9f)
-                    .padding(top = 15.dp)
+                    .fillMaxWidth(0.9f)
+                    .wrapContentHeight()
+                    .padding(top = 15.dp, bottom = 15.dp)
                     .background(
                         color = Color.Blue, shape = RoundedCornerShape(12.dp)
 
@@ -84,77 +92,90 @@ fun MicSettingsContent(
             ) {
                 Column(
                     modifier = Modifier
-                        .fillMaxSize()
+                        .fillMaxWidth()
+                        .wrapContentHeight()
                         .padding(10.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceAround
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
 
                 ) {
 
                     Box(
                         modifier = Modifier
-                            .fillMaxWidth(0.6f)
-                            .fillMaxHeight(0.3f)
+                            .width(210.dp)
+                            .height(50.dp)
                             .background(color = Color.Red, shape = RoundedCornerShape(25.dp))
                     ) {
-                        var state by remember { mutableStateOf(true) }
+//                        var state by remember { mutableStateOf(true) }
                         Row(
-                            modifier = Modifier.padding(8.dp),
+                            modifier = Modifier.padding(10.dp),
                             horizontalArrangement = Arrangement.SpaceAround,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             AudioVideoButton(
                                 name = "Audio In",
-                                onClick = {
-                                    if (state) {
-                                        state = false
-                                    } else {
-                                        state = true
-                                    }
-                                },
-                                selected = state,
+//                                onClick = {
+//                                    if (state) {
+//                                        state = false
+//                                    } else {
+//                                        state = true
+//                                    }
+//                                },
+                                onClick = { inputMode = InputMode.Audio },
+//                                selected = state,
+                                selected = inputMode == InputMode.Audio,
                             )
                             AudioVideoButton(
                                 name = "Video In",
-                                onClick = {
-                                    if (state) {
-                                        state = false
-                                    } else {
-                                        state = true
-                                    }
-                                },
-                                selected = !state,
+//                                onClick = {
+//                                    if (state) {
+//                                        state = false
+//                                    } else {
+//                                        state = true
+//                                    }
+//                                },
+                                onClick = { inputMode = InputMode.Video },
+//                                selected = !state,
+                                selected = inputMode == InputMode.Video
                             )
                         }
                     }
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(0.9f)
-                            .fillMaxHeight(0.45f)
-                            .background(color = Color.White, shape = RoundedCornerShape(25.dp))
+//                    Box(
+//                        modifier = Modifier
+//                            .fillMaxWidth(0.9f)
+//                            .fillMaxHeight(0.45f)
+//                            .background(color = Color.White, shape = RoundedCornerShape(25.dp))
+//
+//
+//                    )
+////                    {
+////                        Row (
+////                            modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 10.dp),
+////                            horizontalArrangement = Arrangement.SpaceAround,
+////                            verticalAlignment = Alignment.CenterVertically
+////                        ){
+////                            Text(
+////                                text = "Phone microphone"
+////                            )
+////                            Spacer(modifier = Modifier.fillMaxWidth(0.8f))
+////                            Image(
+////                                painter = painterResource(id = R.drawable.ic_radio_button_checked),
+////                                contentDescription = "",
+////                                modifier = Modifier.size(24.dp),
+////                                contentScale = ContentScale.Crop,
+////                                colorFilter = ColorFilter.tint(Color.Red)
+////
+////                            )
+////
+////                        }
+////                    }
 
 
-                    ){
-                        Row (
-                            modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 10.dp, bottom = 10.dp),
-                            horizontalArrangement = Arrangement.SpaceAround,
-                            verticalAlignment = Alignment.CenterVertically
-                        ){
-                            Text(
-                                text = "Phone microphone"
-                            )
-                            Spacer(modifier = Modifier.fillMaxWidth(0.8f))
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_radio_button_checked),
-                                contentDescription = "",
-                                modifier = Modifier.size(24.dp),
-                                contentScale = ContentScale.Crop,
-                                colorFilter = ColorFilter.tint(Color.Red)
-
-                            )
-
-                        }
+                    when (inputMode) {
+                        InputMode.Audio -> AudioContent()
+                        InputMode.Video -> VideoContent()
                     }
+
 
                 }
             }
@@ -194,41 +215,64 @@ fun AudioVideoButton(
 
 
 @Composable
-fun FieldComponent(
-    text: String,
-    icon: Int,
-    contentDescription: String? = null,
-    modifier: Modifier = Modifier,
-    contentScale: ContentScale = ContentScale.Crop,
+fun BoxItems(text: String, icon: Int) {
 
-) {
-    Button(onClick = {}, modifier=modifier
-        .clip(shape = RoundedCornerShape(50.dp))
-        .width(200.dp)
-        .height(40.dp)
-        ,
-        colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-
+    Box(
+        modifier = Modifier
+            .width(400.dp)
+            .height(40.dp)
+            .background(color = Color.White, shape = RoundedCornerShape(25.dp))
     ) {
-       Row(
-           verticalAlignment = Alignment.CenterVertically,
-           horizontalArrangement = Arrangement.SpaceBetween,
-           modifier = modifier.padding(start = 8.dp, end = 8.dp)
-       ){
-           Text(
-               text = text
 
-           )
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text)
+            Image(
+                painter = painterResource(id = icon),
+                contentDescription = "Selected",
+                modifier = Modifier.size(24.dp),
+                colorFilter = ColorFilter.tint(Color.Red)
+            )
+        }
 
-           Image(
-               painter = painterResource(id = icon),
-               contentDescription = contentDescription,
-               modifier = Modifier.size(24.dp),
-               contentScale = contentScale,
-               colorFilter = ColorFilter.tint(Color.Red)
+    }
 
-           )
-       }
+}
+
+
+@Composable
+private fun AudioContent() {
+    BoxItems(
+        text = "Phone Microphone",
+        icon = R.drawable.ic_radio_button_checked
+    )
+}
+
+@Composable
+private fun VideoContent() {
+    Column(Modifier.padding(10.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        BoxItems(
+            text = "Front Camera",
+            icon = R.drawable.ic_radio_button_checked
+        )
+
+        BoxItems(
+            text = "Back Camera",
+            icon = R.drawable.ic_radio_button_checked
+        )
+
+        BoxItems(
+            text = "Back Telephoto Camera",
+            icon = R.drawable.ic_radio_button_checked
+        )
+
+        BoxItems(
+            text = "Back Dual Camera",
+            icon = R.drawable.ic_radio_button_checked
+        )
     }
 }
 
