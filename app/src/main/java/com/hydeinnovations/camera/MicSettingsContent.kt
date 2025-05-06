@@ -205,7 +205,7 @@ fun AudioVideoButton(
             containerColor = if (selected) Color.White else Color.Transparent,
             contentColor = if (selected) Color.Black else Color.White
         ),
-        contentPadding = PaddingValues(start = 8.dp, end = 8.dp)
+        contentPadding = PaddingValues(start = 10.dp, end = 8.dp)
     ) {
         Text(
             text = name
